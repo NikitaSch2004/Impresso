@@ -1,0 +1,39 @@
+h1 {
+    padding: 4vh 0;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    font-size: 8vh;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+}
+
+.image-container {
+    opacity: 0;
+    width: 100%;
+    height: auto; /* Adjust the height as needed */
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+    border-radius: 30px;
+    transform: translateY(40px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.image-container.animate {
+    opacity: 1;
+    transform: translateY(0); 
+}
+
+.image-container img {
+    width: 100%;
+    display: block;
+}
+
+a {
+    color: green;
+}

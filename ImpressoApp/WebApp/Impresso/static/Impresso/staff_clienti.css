@@ -1,0 +1,28 @@
+h1{
+    text-align: center;
+    margin-top: 2rem;
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+    text-align: center;
+    margin: 2rem auto; ;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+    width: 25%;
+}
+
+th {
+    background-color: #003500;
+    color: white;
+}
+
+td:hover {
+    background-color: grey;
+    transition: background-color 0.3s ease-in-out;
+}

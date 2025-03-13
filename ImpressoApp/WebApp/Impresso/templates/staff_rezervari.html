@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block head %}
+<title>Impresso - Admin - Rezervari</title>
+<link rel="stylesheet" href="{% static 'Impresso/staff_rezervari.css' %}">
+{% endblock %}
+{% block content %}
+<h1>Rezervari</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Client</th>
+            <th>telefon</th>
+            <th>Email</th>
+            <th>Data</th>
+            <th>Time</th>
+            <th>Numar Persoane</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reservation in reservations %}
+        <tr>
+            <td>{{ reservation.id }}</td>
+            <td>{{ reservation.name }}</td>
+            <td>{{ reservation.phone }}</td>
+            <td>{{ reservation.email }}</td>
+            <td>{{ reservation.date }}</td>
+            <td>{{ reservation.time }}</td>
+            <td>{{ reservation.nr_of_people }}</td>
+            <td>
+                <button type="submit" onclick="deleteReservation('{{reservation.id}}')" class="deleteBtn">Delete</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    function deleteReservation(id) {
+        console.log(id);
+        fetch(`/reservations/delete/${id}`, {
+            method: 'DELETE',
+        }).then(() => {
+            window.location.reload();
+        });
+    }
+</script>
+{% endblock %}

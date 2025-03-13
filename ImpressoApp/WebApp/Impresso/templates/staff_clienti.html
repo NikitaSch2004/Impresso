@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block head %}
+<title>Impresso - Admin - Clienti</title>
+<link rel="stylesheet" href="{% static 'Impresso/staff_clienti.css' %}">
+
+{% endblock %}
+{% block content %}
+<h1>Clienti</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Tip</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{% if user.is_staff %}
+                Staff
+                {% else %}
+                Client
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<hr>
+<h1>Castiguri Clienti</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Bon</th>
+            <th>Castig</th>
+            <th>Data castigului</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for prize in prizes %}
+        <tr>
+            <td>{{ prize.name }}</td>
+            <td>{{ prize.phone }}</td>
+            <td>{{ prize.bon }}</td>
+            <td>{{ prize.prize }}</td>
+            <td>{{ prize.created_at }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

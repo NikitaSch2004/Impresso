@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="{% static 'Impresso/layout.css' %}" rel="stylesheet">
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+<header>
+    <nav>
+        <button class="dropdown-button">Menu</button>
+        <ul class="menu">
+            <li class="logo"><a href="/"><img src="https://impresso.life/media/imp-logo-w.png" alt="Logo"></a></li>
+            {% if not user.is_superuser %}
+            <li><a id="menu" href="#menu">Menu</a></li>
+            <li><a id = "about" href="#about">About</a></li>
+            <li><a id = "reservation" href="{% url 'reservation' %}">Rezervari</a></li>
+            <li><a id = "location" href="#location">Location</a></li>
+            {% else %}
+            <li><a id = "reservation" href="{% url 'staff_rezervari' %}">Rezervari</a></li>
+            <li><a id = "location" href="{% url 'staff_clienti' %}">Clienti</a></li>
+            <li><a id = "location" href="{% url 'staff_RoataNorocului' %}" >RoataNorocului</a></li>
+            {% endif %}
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Log in</a></li>
+            {% endif %}
+            <li><a id="contact" href="#contact" class="contact-button">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+{% block content %}
+{% endblock %}
+</main>
+<script src="{% static 'Impresso/layout.js' %}" defer></script>
+</body>
+</html>

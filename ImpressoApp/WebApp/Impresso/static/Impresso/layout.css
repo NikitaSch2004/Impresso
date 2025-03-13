@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #003500;
+    background-image: url('../background.png');
+    background-size: cover;
+    color: white;
+}
+
+header {
+    background-color: rgba(51, 51, 51, 1);
+    padding: 1vh 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Ensure it stays on top */
+}
+
+nav {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.menu li {
+    margin: 0 2vw;
+}
+
+.menu li a {
+    color: white;
+    text-decoration: none;
+    font-size: 2.5vh;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.menu li a:hover {
+    color: #76c7c0; /* Change to your desired hover color */
+    transform: scale(1.1); /* Slightly enlarge the item */
+}
+
+.menu .logo {
+    margin: 0 4vw;
+}
+
+.menu .logo img {
+    height: 9vh; /* Adjust the size as needed */
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 128, 0, 0.3);
+}
+
+.contact-button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-color: green;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.contact-button:hover {
+    background-color: darkgreen;
+}
+/* Hide the menu by default on smaller screens */
+.menu {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 0;
+}
+
+/* Show the menu when the screen is larger than 768px */
+
+/* Style the dropdown button */
+.dropdown-button {
+    display: flex; 
+    border-radius: 10% 0% 10% 0%;
+    margin-left: 10px;
+    background-color: green;
+    color: white;
+    padding: 5px 5px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    visibility: hidden;
+}
+
+/* Show the menu when the dropdown button is clicked */
+.menu.show {
+    display: flex;
+}
+/* Override contact button styles for smaller screens */
+@media (max-width: 767px) {
+    .menu {
+        display: none;
+        flex-direction: column;
+        gap: 2vh;
+    }
+    .dropdown-button {
+        visibility: visible;
+    }
+    .contact-button {
+        background-color: transparent;
+        color: green;
+    }
+    .contact-button:hover {
+        background-color: transparent;
+        color: darkgreen;
+    }
+}

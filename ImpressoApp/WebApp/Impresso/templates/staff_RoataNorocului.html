@@ -1,0 +1,132 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block head %}
+<title>Impresso - RoataNorocului</title>
+<link rel="stylesheet" href="{% static 'Impresso/roata.css' %}">
+{% endblock %}
+{% block content %}
+{% if success %}
+    <p style="color: green;">{{ success }}</p>
+    {% endif %}
+<h1>Roata Norocului</h1>
+<div id="roata_box">
+  <div id="roata_form">
+    <form action="/staff/RoataNorocului" method="post" id="formRoata">
+      {% csrf_token %}
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required><br><br>
+      <label for="phone">Telefon:</label>
+      <input type="tel" id="phone" name="phone" required><br><br>
+      <label for="value">Valoarea Check-ului(ron):</label>
+      <input type="number" id="check" name="check" required><br><br>
+      <input type="hidden" id="prize" name="prize" value="" readonly required>
+      <input type="button" value="Spin the Wheel" id="spinBtn">
+  </form>
+  </div>
+</div>
+<div id="roata">
+  <div id="wheelOfFortune">
+    <canvas id="wheel" width="400" height="400"></canvas>
+    <div id="spin">SPIN</div>
+  </div>
+</div>
+<script>
+  document.getElementById('wheelOfFortune').style.display = 'none';
+    const sectors = [
+  { color: '#f82', label: '100%' },
+  { color: '#0bf', label: '10%' },
+  { color: '#fb0', label: '20%' },
+  { color: '#0fb', label: '50%' },
+  { color: '#b0f', label: 'SpalatVase' },
+  { color: '#f0b', label: 'Nimic' },
+  { color: '#bf0', label: 'VoucherBautura' }
+]
+
+const rand = (m, M) => Math.random() * (M - m) + m
+const tot = sectors.length
+const spinEl = document.querySelector('#spin')
+const ctx = document.querySelector('#wheel').getContext('2d')
+const dia = ctx.canvas.width
+const rad = dia / 2
+const PI = Math.PI
+const TAU = 2 * PI
+const arc = TAU / sectors.length
+
+const friction = 0.99 // 0.995=soft, 0.99=mid, 0.98=hard
+let angVel = 0 // Angular velocity
+let ang = 0 // Angle in radians
+let spinning = false // Track if wheel is spinning
+
+const getIndex = () => Math.floor(tot - (ang / TAU) * tot) % tot
+
+function drawSector(sector, i) {
+  const ang = arc * i
+  ctx.save()
+  // COLOR
+  ctx.beginPath()
+  ctx.fillStyle = sector.color
+  ctx.moveTo(rad, rad)
+  ctx.arc(rad, rad, rad, ang, ang + arc)
+  ctx.lineTo(rad, rad)
+  ctx.fill()
+  // TEXT
+  ctx.translate(rad, rad)
+  ctx.rotate(ang + arc / 2)
+  ctx.textAlign = 'right'
+  ctx.fillStyle = '#fff'
+  ctx.font = 'bold 16px sans-serif'
+  ctx.fillText(sector.label, rad - 10, 10)
+  ctx.restore()
+}
+
+function rotate() {
+  const sector = sectors[getIndex()]
+  ctx.canvas.style.transform = `rotate(${ang - PI / 2}rad)`
+  spinEl.textContent = !angVel ? 'SPIN' : sector.label
+  spinEl.style.background = sector.color
+}
+
+function frame() {
+  if (!angVel) {
+    if (spinning) {
+      spinning = false // Stop tracking spin
+      const winningSector = sectors[getIndex()]
+      setTimeout(() => alert(`You won: ${winningSector.label}!`), 500) // Alert after stopping
+      document.getElementById('prize').value = winningSector.label;
+    document.getElementById('formRoata').submit();
+    }
+    return
+  }
+  
+  angVel *= friction // Decrement velocity by friction
+  if (angVel < 0.002) angVel = 0 // Bring to stop
+  ang += angVel // Update angle
+  ang %= TAU // Normalize angle
+  rotate()
+}
+
+function engine() {
+  frame()
+  requestAnimationFrame(engine)
+}
+
+function init() {
+  sectors.forEach(drawSector)
+  rotate() // Initial rotation
+  engine() // Start engine
+  document.getElementById('spinBtn').addEventListener('click', function(event) {
+    event.preventDefault();
+    document.getElementById('formRoata').style.display = 'none';
+    document.getElementById('roata_box').style.margin = 0;
+    document.getElementById('roata_box').style.padding = 0;
+    document.getElementById('wheelOfFortune').style.display = 'inline-block';
+    if (!angVel) {
+      angVel = rand(0.25, 0.45)
+      spinning = true // Mark wheel as spinning
+    }
+  })
+}
+
+init()
+</script>
+{% endblock %}

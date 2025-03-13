@@ -1,0 +1,64 @@
+main {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.contact_box {
+    background-color: rgba(30, 30, 30, 0.94);
+    border-radius: 30px;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    opacity: 0; 
+    transform: translateY(40px); 
+    transition: opacity 0.9s ease, transform 0.9s ease; 
+}
+
+.contact_box.animate {
+    opacity: 1;
+    transform: translateY(0); 
+}
+
+h1 {
+    color: darkgreen;
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.hours, .telefon {
+    margin: 20px 0;
+}
+
+.telefon h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.telefon p {
+    text-decoration: underline;
+}
+
+.social_links {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    margin-top: 20px;
+}
+
+.social_links a {
+    color: white;
+    font-size: 24px;
+    transition: transfrom 0.4s ease;
+}
+
+.social_links a:hover {
+    color: #ccc;
+    transform: scale(1.3);
+}

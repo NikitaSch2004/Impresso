@@ -1,0 +1,194 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block head %}
+    <title>Impresso</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'Impresso/main.css' %}" id="main_css">
+
+{% endblock %}
+{% block content %}
+    <!-- <h1>Welcome to Impresso {{ request.user.username }}</h1> -->
+    {% if succes %}
+    <p style="color: green;">{{ succes }}</p>
+    {% endif %}
+    <div id ='main_div'>
+        <div class="container">
+            <h1>Welcome to <img src="../static/imp-logo-w.png" alt="Logo" class="logo_main">, {{request.user}}!</h1>
+            <p>Hello there, you beautiful human being!</p>
+            <p>We're extremely happy you came to Impresso!</p>
+            <p>Our story starts in July 2020 and since then we met thousands and thousands of amazing people with impressive stories, colorful smiles and radiant auras, that made us feel like we were meant to be here, to serve good coffee, delicious mocktails and spicy cocktails!</p>
+            <p>Working... never feels like working... ok, sometimes it feels like it, but combined with fun and good vibes!</p>
+            <p>This is the place where our customers became our friends and family, the place where everybody is somebody... where everyone is welcomed! A place you can call home!</p>
+            <p>Hope you will understand my vision... no, no, no... scratch that... hope you will feel the vibe!</p>
+            <p class="signature">Marcus</p>
+
+            <div class="video-container">
+                <video controls autoplay loop muted>
+                    <source src="../static/impressovid1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="images-container">
+                <img src="../static/impresso1.jpg" alt="Image 1">
+                <img src="../static/impresso2.jpg" alt="Image 2">
+                <img src="../static/impresso3.jpg" alt="Image 3">
+                <img src="../static/impresso4.jpg" alt="Image 4">
+            </div>
+        </div>
+        <script>
+                document.addEventListener('DOMContentLoaded', function() {
+        const images = document.querySelectorAll('.images-container img');
+
+        function checkSlide() {
+            images.forEach((image, index) => {
+                const slideInAt = (window.scrollY + window.innerHeight) - image.height / 2;
+                const imageBottom = image.offsetTop + image.height;
+                const isHalfShown = slideInAt > image.offsetTop;
+                const isNotScrolledPast = window.scrollY < imageBottom;
+
+                if (isHalfShown && isNotScrolledPast) {
+                    if (index % 2 === 0) {
+                        image.classList.add('slide-in-left');
+                    } else {
+                        image.classList.add('slide-in-right');
+                    }
+                } else {
+                    image.classList.remove('slide-in-left', 'slide-in-right');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkSlide);
+        checkSlide(); // Run the function once on page load
+    });
+        </script>
+    </div>
+    <script defer>
+        // Fetch the login page and update the 'test' div with the response
+        document.getElementById("location").addEventListener("click", function() {
+            fetch('/location', {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest', // Custom header
+            }
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                // Check if the location.css stylesheet is already added
+                if (!Array.from(document.getElementsByTagName('link')).some(link => link.href.includes('Impresso/location.css'))) {
+                    remove_css_links();
+                    var locationLink = document.createElement('link');
+                    locationLink.rel = 'stylesheet';
+                    locationLink.href = "{% static 'Impresso/location.css' %}";
+                    locationLink.id = 'location_css';
+                    document.head.appendChild(locationLink);
+                }
+                document.title = 'Impresso - Location';
+                document.getElementById('main_div').innerHTML = data;
+                const contactBox = document.querySelector(".location_box"); 
+                setTimeout(() => {
+                    contactBox.classList.add("animate");
+                }, 100);
+            });
+        });
+        document.getElementById('contact').addEventListener('click', function() {
+            fetch('/contact', {
+            method: 'GET',
+            headers: {
+            'X-Requested-With': 'XMLHttpRequest', // Custom header
+            }
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                // Add the contact.css stylesheet
+                // Check if the contact.css stylesheet is already added
+                if (!Array.from(document.getElementsByTagName('link')).some(link => link.href.includes('Impresso/contact.css'))) {
+                    remove_css_links();
+                    var contactLink = document.createElement('link');
+                    contactLink.rel = 'stylesheet';
+                    contactLink.href = "{% static 'Impresso/contact.css' %}";
+                    contactLink.id = 'contact_css';
+                    document.head.appendChild(contactLink);
+                }
+                document.title = 'Impresso - Contact';
+                document.getElementById('main_div').innerHTML = data;
+                const contactBox = document.querySelector(".contact_box");
+                setTimeout(() => {
+                    contactBox.classList.add("animate");
+                }, 100);
+            });
+        });
+        document.getElementById('about').addEventListener('click', function() {
+            fetch('/about', {
+            method: 'GET',
+            headers: {
+            'X-Requested-With': 'XMLHttpRequest', // Custom header
+            }
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                // Add the about.css stylesheet
+                // Check if the about.css stylesheet is already added
+                if (!Array.from(document.getElementsByTagName('link')).some(link => link.href.includes('Impresso/about.css'))) {
+                    remove_css_links();
+                    var aboutLink = document.createElement('link');
+                    aboutLink.rel = 'stylesheet';
+                    aboutLink.href = "{% static 'Impresso/about.css' %}";
+                    aboutLink.id = 'about_css';
+                    document.head.appendChild(aboutLink);
+                }
+                document.title = 'Impresso - About';
+                document.getElementById('main_div').innerHTML = data;
+                const contactBox = document.querySelector(".about_box");
+                setTimeout(() => {
+                    contactBox.classList.add("animate");
+                }, 100);
+            });
+        });
+        document.getElementById('menu').addEventListener('click', function() {
+            fetch('/menu', {
+            method: 'GET',
+            headers: {
+            'X-Requested-With': 'XMLHttpRequest', // Custom header
+            }
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                // Add the menu.css stylesheet
+                // Check if the menu.css stylesheet is already added
+                if (!Array.from(document.getElementsByTagName('link')).some(link => link.href.includes('Impresso/menu.css'))) {
+                    remove_css_links();
+                    var menuLink = document.createElement('link');
+                    menuLink.rel = 'stylesheet';
+                    menuLink.href = "{% static 'Impresso/menu.css' %}";
+                    menuLink.id = 'menu_css';
+                    document.head.appendChild(menuLink);
+                }
+                document.title = 'Impresso - Menu';
+                document.getElementById('main_div').innerHTML = data;
+                const contactBox = document.querySelector(".image-container"); 
+                setTimeout(() => {
+                    contactBox.classList.add("animate");
+                }, 100);
+            });
+        });
+        function remove_css_links(){
+            // Remove the location.css stylesheet
+            var main_css = document.getElementById('main_css');
+            var location_css = document.getElementById('location_css');
+            var contact_css = document.getElementById('contact_css');
+            var about_css = document.getElementById('about_css');
+            var menu_css = document.getElementById('menu_css');
+            [location_css, contact_css, about_css, menu_css,main_css].forEach(function(css){
+                if (css) {
+                    css.remove();
+                }
+            });
+        }
+    </script>
+{% endblock %}

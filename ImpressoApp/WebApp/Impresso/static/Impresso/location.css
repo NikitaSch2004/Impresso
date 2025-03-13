@@ -1,0 +1,99 @@
+.location_box {
+    background-color: rgba(30, 30, 30, 0.94);
+    border-radius: 30px;
+    padding: 20px;
+    width: 40vw;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    color: white;
+    transform: translateY(40px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+    margin: 2rem auto; /* Center the location box */
+}
+
+.location_box.animate {
+    opacity: 1;
+    transform: translateY(0); 
+}
+
+h1 {
+    padding: 4vh 0;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    color:darkgreen;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.details {
+    text-align: center;
+}
+
+.details h2 {
+    margin-bottom: 1rem;
+}
+
+.details p {
+    margin-bottom: 1rem;
+}
+
+.map-container {
+    width: 90%; /* Adjust width to fit the container */
+    position: relative;
+    align-self: center;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+    margin: 0 auto 2rem auto;
+    border-radius: 30px;
+}
+
+.map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.map iframe {
+    width: 100%;
+    height: 100%;
+}
+
+/* Styles for smaller screens */
+@media (max-width: 768px) {
+    .map-container {
+        width: 100%;
+        padding-bottom: 75%;
+    }
+}
+
+.direction-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: green;
+    color: white;
+    text-decoration: none;
+    border-radius: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.direction-link:hover {
+    background-color: darkgreen;
+}
+
+#mapContainer {
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+    visibility: visible; /* Ensures smooth fade-in */
+}
