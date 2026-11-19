@@ -103,26 +103,33 @@ Impresso/
    pip install -r requirements.txt
    ```
 
-4. Apply database migrations:
+4. Turn on local development mode (the settings default to production-safe values):
+   ```bash
+   export DJANGO_DEBUG=True    # On Windows (PowerShell): $env:DJANGO_DEBUG="True"
+   ```
+
+5. Apply database migrations:
    ```bash
    cd ImpressoApp/WebApp
    python manage.py migrate
    ```
 
-5. (Optional) Create an admin superuser:
+6. (Optional) Create an admin superuser:
    ```bash
    python manage.py createsuperuser
    ```
 
-6. Start the server:
+7. Start the server:
    ```bash
    python manage.py runserver 8000
    ```
 
-7. Open your browser and navigate to:
+8. Open your browser and navigate to:
    ```
    http://127.0.0.1:8000/
    ```
+
+> **Configuration:** the settings read `DJANGO_SECRET_KEY`, `DJANGO_DEBUG` (default `False`) and `DJANGO_ALLOWED_HOSTS` (default `127.0.0.1,localhost`) from the environment. In production, set a real `DJANGO_SECRET_KEY` and the site's domain in `DJANGO_ALLOWED_HOSTS`, and leave `DJANGO_DEBUG` unset.
 
 ---
 
